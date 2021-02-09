@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
+/**
+ * Class ParkingService
+ * @package App\Services
+ */
 class ParkingService
 {
 
@@ -28,7 +32,11 @@ class ParkingService
         $clientLocation = Http::get('http://ip-api.com/json/' . $ip_address);
 
         if (!Cache::has('clientIpLocation')) {
-            Cache::put('clientIpLocation', $clientLocation->body(), 30000);
+            \cache()->remember('clientIpLocation', 60*60*24, function () use ($ip_address)
+            {
+                Http::get('http://ip-api.com/json/' . $ip_address)->body();
+            });
+//            Cache::put('clientIpLocation', $clientLocation->body(), 30000);
         }
     }
 

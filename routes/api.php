@@ -18,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/getIpLocation', 'ApiParkingController@getIpLocation')->name('apiLocation');
 Route::get('/getParking/{data}', 'ApiParkingController@getParkingLocations')->name('apiParking');
 Route::get('/getParking', 'ApiParkingController@getParkingLocations')->name('apiParking');

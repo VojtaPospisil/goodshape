@@ -5,8 +5,15 @@ namespace App\Http\Controllers;
 use App\Services\ApiServices\ApiParkingService;
 use Illuminate\Http\Request;
 
+/**
+ * Class ApiParkingController
+ * @package App\Http\Controllers
+ */
 class ApiParkingController extends Controller
 {
+    /**
+     * @var ApiParkingService $apiParkingService
+     */
     protected $apiParkingService;
 
     /**
@@ -16,6 +23,14 @@ class ApiParkingController extends Controller
     public function __construct(ApiParkingService $apiParkingService)
     {
         $this->apiParkingService = $apiParkingService;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIpLocation()
+    {
+        return $this->apiParkingService->getClientIpLocation();
     }
 
     /**
